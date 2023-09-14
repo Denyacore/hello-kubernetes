@@ -1,7 +1,7 @@
 body {
   margin:0;
   padding:0;
-  background-color:#333333;
+  background-color:#d6c631;
 }
 
 div.main { 
@@ -22,9 +22,9 @@ div.content {
   font-family: 'Ubuntu', sans-serif;
   font-weight: 300;
   font-size: 32pt;
-  background-color: #505050;
-  border-top: 2px solid #909090;
-  border-bottom: 2px solid #909090;
+  background-color: #e01414;
+  border-top: 2px solid #d11919;
+  border-bottom: 2px solid #ca1a1a;
 }
 
 .content #footer {

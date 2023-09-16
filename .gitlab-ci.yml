@@ -16,6 +16,9 @@
 #     - echo "im alive" 
 #   only:
 #     - master 
+stages:
+  - build
+  - deploy
 
 docker-build:
   # Use the official docker image.

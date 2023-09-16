@@ -25,8 +25,6 @@ build:
 deploy:
   stage: deploy
   script:
-    # - apt-get update # обновляем локальную базу данных пакетов 
-    - apt-get install -y curl # устанавливаем curl
     - docker pull $DOCKER_IMAGE_NAME # Пуллим собранный образ из Docker Registry
     - docker run -d -p 8080:80 $DOCKER_IMAGE_NAME # Запускаем контейнер с образом
     - sleep 5 # проверка успешного развертывания

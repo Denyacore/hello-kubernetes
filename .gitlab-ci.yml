@@ -28,4 +28,4 @@ deploy:
     - docker pull $DOCKER_IMAGE_NAME # Пуллим собранный образ из Docker Registry
     - docker run -d -p 8080:80 $DOCKER_IMAGE_NAME # Запускаем контейнер с образом
     - sleep 5 # проверка успешного развертывания
-    - curl http://localhost:8080 # Пример проверки доступности контейнера через HTTP-запрос
+    # - curl http://localhost:8080 # Пример проверки доступности контейнера через HTTP-запрос

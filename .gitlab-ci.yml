@@ -16,6 +16,7 @@ before_script:
 build:
   stage: build
   script:
+    - cd E:/Dev/tensortest/hello-kubernetes/src/app # Переходим в директорию с Dockerfile
     - docker build -t $DOCKER_IMAGE_NAME .
     - docker push $DOCKER_IMAGE_NAME
     - |
@@ -29,4 +30,4 @@ deploy:
   script:
     - echo "Deployment script goes here" # Замените эту строку на скрипт развертывания вашего приложения
   only:
-    - master # Здесь указывается, на какой ветке должен выполняться этот этап
+    - master

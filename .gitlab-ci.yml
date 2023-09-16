@@ -16,18 +16,13 @@ before_script:
 build:
   stage: build
   script:
-    - cd E:/Dev/tensortest/hello-kubernetes/src/app # Переходим в директорию с Dockerfile
+    - cd E:/Dev/tensortest/hello-kubernetes/.devcontainer # Переходим в директорию с Dockerfile для DevContainer
     - docker build -t $DOCKER_IMAGE_NAME .
     - docker push $DOCKER_IMAGE_NAME
-    - |
-      if [[ "$CI_COMMIT_BRANCH" == "$CI_DEFAULT_BRANCH" ]]; then
-        docker tag "$DOCKER_IMAGE_NAME" "$CI_REGISTRY_IMAGE:latest"
-        docker push "$CI_REGISTRY_IMAGE:latest"
-      fi
 
 deploy:
   stage: deploy
   script:
-    - echo "Deployment script goes here" # Замените эту строку на скрипт развертывания вашего приложения
+    - echo "Deployment script goes here" # Замените эту строку на скрипт развертывания вашего проекта, используя собранный Docker-образ
   only:
     - master

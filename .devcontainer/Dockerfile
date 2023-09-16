@@ -77,8 +77,6 @@ RUN mkdir /tmp/trivy \
     && mkdir -p /trivy/contrib \
     && mv /tmp/trivy/contrib/* /trivy/contrib/
 
-RUN apk --no-cache add curl
-
 # Clean up
 RUN apt-get autoremove -y \
     && apt-get clean -y \

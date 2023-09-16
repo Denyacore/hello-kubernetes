@@ -4,17 +4,15 @@ stages:
   - build
   - deploy
 
-variables:
-  DOCKER_IMAGE_NAME: denyacore/hello-kubernetes
-
 build:
   stage: build
   script:
-    - docker build -t $DOCKER_IMAGE_NAME .
-    - echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-    - docker push $DOCKER_IMAGE_NAME
+    - docker build -t $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA .
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_SHA
 
 deploy:
   stage: deploy
   script:
-    - echo "im alive"
+    - echo "im alive" 
+  only:
+    - master 

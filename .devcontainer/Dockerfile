@@ -17,6 +17,7 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 
 # Configure apt and install packages
+# Обновление списка пакетов и установка базовых пакетов
 RUN apt-get update && apt-get install -y --no-install-recommends \
         apt-utils \
         bash-completion \
@@ -29,29 +30,22 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
         procps \
         less \
         vim \
-    #
-    # Install bash completion
+        sudo \
     && echo ". /etc/bash_completion" >> ~/.bashrc \
     && mkdir -p ~/completions \
-    #
-    # Install node packages globally
     && npm install -g eslint pino-pretty \
-    #
-    # Add add sudo support for non-root user
-    && apt-get install -y sudo \
     && echo node ALL=\(root\) NOPASSWD:ALL > /etc/sudoers.d/$USERNAME \
     && chmod 0440 /etc/sudoers.d/$USERNAME
 
-# Install Docker CE CLI
-RUN apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common lsb-release \
-    && curl -fsSL https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/gpg | (OUT=$(apt-key add - 2>&1) || echo $OUT) \
+# Установка Docker CE CLI
+RUN curl -fsSL https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]')/gpg | (OUT=$(apt-key add - 2>&1) || echo $OUT) \
     && add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/$(lsb_release -is | tr '[:upper:]' '[:lower:]') $(lsb_release -cs) stable" \
     && apt-get update \
     && apt-get install -y docker-ce-cli \
     && curl -L https://raw.githubusercontent.com/docker/docker-ce/master/components/cli/contrib/completion/bash/docker -o ~/completions/docker.bash \
     && echo "source ~/completions/docker.bash" >> ~/.bashrc
 
-# Install Helm
+# Установка Helm
 RUN mkdir /tmp/helm \
     && curl -L https://get.helm.sh/helm-$(curl -s https://api.github.com/repos/helm/helm/releases/latest | jq -r .tag_name)-linux-amd64.tar.gz | tar xz -C /tmp/helm --strip-components 1 \
     && mv /tmp/helm/helm /usr/local/bin/ \
@@ -60,7 +54,7 @@ RUN mkdir /tmp/helm \
     && helm completion bash > ~/completions/helm.bash \
     && echo "source ~/completions/helm.bash" >> ~/.bashrc
 
-# Install kubectl
+# Установка kubectl
 RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" \
     && chmod +x ./kubectl \
     && mv ./kubectl /usr/local/bin/kubectl \
@@ -69,7 +63,7 @@ RUN curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/s
     && echo "alias k=kubectl" >> ~/.bashrc \
     && echo "complete -o default -F __start_kubectl k" >> ~/.bashrc
 
-# Install trivy
+# Установка trivy
 RUN mkdir /tmp/trivy \
     && curl -L https://github.com/aquasecurity/trivy/releases/download/v0.19.2/trivy_0.19.2_Linux-64bit.tar.gz | tar xvz -C /tmp/trivy -f - contrib trivy \
     && chmod +x /tmp/trivy/trivy \
@@ -77,10 +71,10 @@ RUN mkdir /tmp/trivy \
     && mkdir -p /trivy/contrib \
     && mv /tmp/trivy/contrib/* /trivy/contrib/
     
-# Clean up
+# Очистка
 RUN apt-get autoremove -y \
     && apt-get clean -y \
     && rm -rf /var/lib/apt/lists/*
 
-# Switch back to dialog for any ad-hoc use of apt-get
+# Возврат к интерактивному режиму при необходимости использования apt-get
 ENV DEBIAN_FRONTEND=dialog

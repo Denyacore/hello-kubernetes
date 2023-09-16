@@ -12,9 +12,6 @@ WORKDIR /usr/src/app
 COPY package.json /usr/src/app/
 RUN npm install
 
-# Install curl
-RUN apk --no-cache add curl
-
 # Bundle app source
 COPY . /usr/src/app
 

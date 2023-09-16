@@ -25,6 +25,7 @@ build:
 deploy:
   stage: deploy
   script:
-    - echo "Deployment script goes here" # Замените эту строку на скрипт развертывания вашего проекта, используя собранный Docker-образ
+    - docker pull $DOCKER_IMAGE_NAME # Пуллим собранный образ из Docker Registry
+    - docker run -d -p 8080:80 $DOCKER_IMAGE_NAME # Запускаем контейнер с образом
   only:
     - master

@@ -16,7 +16,7 @@ before_script:
 build:
   stage: build
   script:
-    - cd E:/Dev/tensortest/hello-kubernetes/.devcontainer # Переходим в директорию с Dockerfile для DevContainer
+    - hello-kubernetes/.devcontainer # Переходим в директорию с Dockerfile для DevContainer
     - docker build -t $DOCKER_IMAGE_NAME .
     - docker push $DOCKER_IMAGE_NAME
 

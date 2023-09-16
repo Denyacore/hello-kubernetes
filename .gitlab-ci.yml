@@ -16,9 +16,9 @@ before_script:
 build:
   stage: build
   script:
-    - mkdir -p /tmp/build-context # Создаем временную директорию внутри контейнера
-    - cp -r .devcontainer/* /tmp/build-context/ # Копируем файлы и директории во временную директорию
-    - cd /tmp/build-context # Переходим во временную директорию
+    - mkdir -p /tmp/build-context
+    - cp -r .devcontainer/* /tmp/build-context/
+    - cd /tmp/build-context
     - docker build -t $DOCKER_IMAGE_NAME .
     - docker push $DOCKER_IMAGE_NAME
 
@@ -27,5 +27,7 @@ deploy:
   script:
     - docker pull $DOCKER_IMAGE_NAME # Пуллим собранный образ из Docker Registry
     - docker run -d -p 8080:80 $DOCKER_IMAGE_NAME # Запускаем контейнер с образом
+    - sleep 5 # проверка успешного развертывания
+    - curl http://localhost:8080 # Пример проверки доступности контейнера через HTTP-запрос
   only:
     - master

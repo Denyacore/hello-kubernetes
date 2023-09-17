@@ -24,7 +24,7 @@ deploy:
   stage: deploy
   script:
     - docker pull $DOCKER_IMAGE_NAME
-    - docker run -d -p 8080:8080 -e HOST=0.0.0.0 $DOCKER_IMAGE_NAME # Запускаем контейнер с образом
+    - docker run -d -p 8080:8080 -e HOST=localhost $DOCKER_IMAGE_NAME # Запускаем контейнер с образом
     - sleep 10 # Даем контейнеру время для запуска (может потребоваться больше времени, в зависимости от вашего приложения)
     - docker ps -a # Показываем список запущенных контейнеров
     - docker ps -q -n 1 | xargs docker logs

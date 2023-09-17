@@ -15,9 +15,11 @@ RUN npm install
 # Bundle app source
 COPY . /usr/src/app
 
-USER node
+USER root
 
 # Install curl
 RUN apk --no-cache add curl
+
+USER node
 
 CMD [ "npm", "start" ]

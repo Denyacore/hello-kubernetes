@@ -16,4 +16,8 @@ RUN npm install
 COPY . /usr/src/app
 
 USER node
+
+# Install curl
+RUN apk --no-cache add curl
+
 CMD [ "npm", "start" ]

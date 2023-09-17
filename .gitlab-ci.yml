@@ -23,6 +23,7 @@ deploy:
   stage: deploy
   script:
     - docker pull $DOCKER_IMAGE_NAME
+    - echo $DOCKER_IMAGE_NAME
     - docker run -d -p 8080:8080 $DOCKER_IMAGE_NAME # Запускаем контейнер с образом
     - sleep 10 # Даем контейнеру время для запуска (может потребоваться больше времени, в зависимости от вашего приложения)
     - docker ps -a # Показываем список запущенных контейнеров

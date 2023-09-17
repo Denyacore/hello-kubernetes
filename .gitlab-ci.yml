@@ -24,8 +24,8 @@ deploy:
   stage: deploy
   script:
     - docker pull $DOCKER_IMAGE_NAME
-    - echo $CI_REGISTRY
     - docker run -d -p 8080:8080 $DOCKER_IMAGE_NAME # Запускаем контейнер с образом
     - sleep 10 # Даем контейнеру время для запуска (может потребоваться больше времени, в зависимости от вашего приложения)
     - docker ps -a # Показываем список запущенных контейнеров
+    - docker logs -l
     - curl -s http://localhost:8080 # Проверяем доступность вашего приложения (замените URL на фактический, если необходимо)

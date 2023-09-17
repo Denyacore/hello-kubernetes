@@ -5,13 +5,13 @@ stages:
   - deploy
 
 variables:
-  DOCKER_IMAGE_NAME: $CI_REGISTRY_IMAGE_DOCKERHUB:latest
+  DOCKER_IMAGE_NAME: $CI_REGISTRY_IMAGE_GITLAB:latest
 
 services:
   - docker:dind
 
 before_script:
-  - docker login -u "$CI_REGISTRY_USER_DOCKERHUB" -p "$CI_REGISTRY_PASSWORD_DOCKERHUB" $CI_REGISTRY_DOCKERHUB
+  - docker login -u "$CI_REGISTRY_USER_GITLAB" -p "$CI_REGISTRY_PASSWORD_GITLAB" $CI_REGISTRY_GITLAB
 
 build:
   stage: build

@@ -12,6 +12,7 @@ services:
 
 before_script:
   - docker login -u "$CI_REGISTRY_USER_GITLAB" -p "$CI_REGISTRY_PASSWORD_GITLAB" $CI_REGISTRY_GITLAB
+  - apk add curl
 
 build:
   stage: build

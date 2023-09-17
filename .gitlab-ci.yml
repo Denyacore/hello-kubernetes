@@ -16,6 +16,7 @@ before_script:
 build:
   stage: build
   script:
+    - docker system prune -a
     - docker build -t $DOCKER_IMAGE_NAME -f src/app/Dockerfile .
     - docker push $DOCKER_IMAGE_NAME
 

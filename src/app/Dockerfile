@@ -9,8 +9,8 @@ RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 
 # Install app dependencies
-COPY ./src/app/package.json /usr/src/app/
-RUN npm install
+COPY package.json /usr/src/app/
+RUN npm installп
 
 # Bundle app source
 COPY . /usr/src/app
@@ -20,6 +20,5 @@ USER root
 # Install curl
 RUN apk --no-cache add curl
 
-USER node
 
 CMD [ "npm", "start" ]

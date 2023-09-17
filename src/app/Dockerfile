@@ -10,7 +10,7 @@ WORKDIR /usr/src/app
 
 # Install app dependencies
 COPY ./src/app/package.json /usr/src/app/
-RUN npm installп
+RUN npm install
 
 # Bundle app source
 COPY . /usr/src/app

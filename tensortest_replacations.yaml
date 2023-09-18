@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: kuber-replicaset
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: hello-kuber
+  template:
+    metadata:
+      labels:
+        app: hello-kuber
+    spec:
+      containers:
+      - name: hello-kubernetes
+        image: registry.gitlab.com/denyacore/hello-kubernetes:latest
+        ports:
+        - containerPort: 80
